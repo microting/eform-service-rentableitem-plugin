@@ -1,0 +1,11 @@
+dist: xenial
+language: csharp
+solution: ServiceTrashInspectionPlugin.sln
+mono: none
+dotnet: 2.2
+services:
+- mysql
+script:
+  - dotnet restore
+  - dotnet build ServiceRentableItemsPlugin.sln
+  - dotnet test -v n ServiceRentableItemsPlugin.Integration.Test/ServiceRentableItemsPlugin.Integration.Test.csproj
