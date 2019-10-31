@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRentableItemsPlugin", "ServiceRentableItemsPlugin\ServiceRentableItemsPlugin.csproj", "{5A264D0C-736B-4A11-B6A6-7F76B53D3DE3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{33C12F5E-B8B3-4FE0-8D7C-E1F872C23BBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRentableItemsPlugin.Integration.Test", "ServiceRentableItemsPlugin.Integration.Test\ServiceRentableItemsPlugin.Integration.Test.csproj", "{997EB7B6-CE3E-402A-A9AC-909AD4F4BFC4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A264D0C-736B-4A11-B6A6-7F76B53D3DE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A264D0C-736B-4A11-B6A6-7F76B53D3DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A264D0C-736B-4A11-B6A6-7F76B53D3DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A264D0C-736B-4A11-B6A6-7F76B53D3DE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{997EB7B6-CE3E-402A-A9AC-909AD4F4BFC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{997EB7B6-CE3E-402A-A9AC-909AD4F4BFC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{997EB7B6-CE3E-402A-A9AC-909AD4F4BFC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{997EB7B6-CE3E-402A-A9AC-909AD4F4BFC4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{997EB7B6-CE3E-402A-A9AC-909AD4F4BFC4} = {33C12F5E-B8B3-4FE0-8D7C-E1F872C23BBA}
+	EndGlobalSection
+EndGlobal
