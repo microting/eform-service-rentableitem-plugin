@@ -37,9 +37,26 @@ namespace ServiceRentableItemsPlugin.Handlers
 {
     public class eFormRetrievedHandler : IHandleMessages<eFormRetrieved>
     {
-        public Task Handle(eFormRetrieved message)
+        private readonly eFormCore.Core _sdkCore;
+        private readonly eFormRentableItemPnDbContext _dbContext;
+
+        public eFormRetrievedHandler(eFormCore.Core sdkCore, DbContextHelper dbContextHelper)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContextHelper.GetDbContext();
+            _sdkCore = sdkCore;
+        }
+        public async Task Handle(eFormRetrieved message)
+        {
+            ContractInspection contractInspection =
+                _dbContext.ContractInspection.SingleOrDefault(x => x.SDKCaseId == message.caseId);
+            if (contractInspection != null)
+            {
+                if (contractInspection.Status < 77)
+                {
+                    contractInspection.Status = 77;
+                    await contractInspection.Update(_dbContext);
+                }
+            }
         }
     }
 }

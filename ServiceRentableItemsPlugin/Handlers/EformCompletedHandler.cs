@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microting.eForm.Dto;
 using Microting.eForm.Infrastructure.Constants;
 using Microting.eForm.Infrastructure.Models;
@@ -36,9 +37,55 @@ namespace ServiceRentableItemsPlugin.Handlers
 {
     public class EformCompletedHandler : IHandleMessages<eFormCompleted>
     {
-        public Task Handle(eFormCompleted message)
+        private readonly eFormCore.Core _sdkCore;
+        private readonly eFormRentableItemPnDbContext _dbContext;
+
+        public EformCompletedHandler(eFormCore.Core sdkCore, DbContextHelper dbContextHelper)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContextHelper.GetDbContext();
+            _sdkCore = sdkCore;
         }
+        public async Task Handle(eFormCompleted message)
+        {
+            ContractInspection contractInspection =
+                _dbContext.ContractInspection.SingleOrDefault(x => x.SDKCaseId == message.caseId);
+
+            if (contractInspection != null)
+            {
+                contractInspection.Status = 100;
+                var caseDto = _sdkCore.CaseReadByCaseId(message.caseId);
+                var microtingUId = caseDto.Result.MicrotingUId;
+                var microtingCheckUId = caseDto.Result.CheckUId;
+                if (microtingUId != null && microtingCheckUId != null)
+                {
+                    var theCase = _sdkCore.CaseRead((int) microtingUId, (int) microtingCheckUId);
+                    
+                    Contract contract = await _dbContext.Contract.SingleOrDefaultAsync(x => x.Id == contractInspection.ContractId);
+                    if (contract.Status != 100)
+                    {
+                        contract.Status = 100;
+
+                        await contract.Update(_dbContext);
+                    }
+                    await RetractFromMicroting(contract.Id);
+                }
+                
+            }
+        }
+
+        public async Task RetractFromMicroting(int contractId)
+        {
+            List<ContractInspection> contractInspections =
+                _dbContext.ContractInspection.Where(x => x.ContractId == contractId).ToList();
+            foreach (ContractInspection contractInspection in contractInspections)
+            {
+                Case_Dto caseDto = await _sdkCore.CaseReadByCaseId(contractInspection.SDKCaseId);
+                if (caseDto.MicrotingUId != null)
+                {
+                    await _sdkCore.CaseDelete((int) caseDto.MicrotingUId);
+                }
+            }
+        }
+        
     }
 }
