@@ -79,7 +79,7 @@ namespace ServiceRentableItemsPlugin.Handlers
                 _dbContext.ContractInspection.Where(x => x.ContractId == contractId).ToList();
             foreach (ContractInspection contractInspection in contractInspections)
             {
-                Case_Dto caseDto = await _sdkCore.CaseReadByCaseId(contractInspection.SDKCaseId);
+                CaseDto caseDto = await _sdkCore.CaseReadByCaseId(contractInspection.SDKCaseId);
                 if (caseDto.MicrotingUId != null)
                 {
                     await _sdkCore.CaseDelete((int) caseDto.MicrotingUId);
