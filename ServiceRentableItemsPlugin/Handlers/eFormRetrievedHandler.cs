@@ -47,14 +47,14 @@ namespace ServiceRentableItemsPlugin.Handlers
         }
         public async Task Handle(eFormRetrieved message)
         {
-            ContractInspection contractInspection =
-                _dbContext.ContractInspection.SingleOrDefault(x => x.SDKCaseId == message.caseId);
-            if (contractInspection != null)
+            ContractInspectionItem contractInspectionItem =
+                _dbContext.ContractInspectionItem.SingleOrDefault(x => x.SDKCaseId == message.caseId);
+            if (contractInspectionItem != null)
             {
-                if (contractInspection.Status < 77)
+                if (contractInspectionItem.Status < 77)
                 {
-                    contractInspection.Status = 77;
-                    await contractInspection.Update(_dbContext);
+                    contractInspectionItem.Status = 77;
+                    await contractInspectionItem.Update(_dbContext);
                 }
             }
         }

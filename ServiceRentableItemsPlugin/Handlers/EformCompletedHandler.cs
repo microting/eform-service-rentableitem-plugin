@@ -47,18 +47,22 @@ namespace ServiceRentableItemsPlugin.Handlers
         }
         public async Task Handle(eFormCompleted message)
         {
-            ContractInspection contractInspection =
-                _dbContext.ContractInspection.SingleOrDefault(x => x.SDKCaseId == message.caseId);
+            ContractInspectionItem contractInspectionItem =
+                _dbContext.ContractInspectionItem.SingleOrDefault(x => x.SDKCaseId == message.caseId);
 
-            if (contractInspection != null)
+            if (contractInspectionItem != null)
             {
-                contractInspection.Status = 100;
+                contractInspectionItem.Status = 100;
                 var caseDto = _sdkCore.CaseReadByCaseId(message.caseId);
                 var microtingUId = caseDto.Result.MicrotingUId;
                 var microtingCheckUId = caseDto.Result.CheckUId;
                 if (microtingUId != null && microtingCheckUId != null)
                 {
                     var theCase = _sdkCore.CaseRead((int) microtingUId, (int) microtingCheckUId);
+
+                    ContractInspection contractInspection =
+                        await _dbContext.ContractInspection.SingleOrDefaultAsync(x =>
+                            x.Id == contractInspectionItem.ContractInspectionId);
                     
                     Contract contract = await _dbContext.Contract.SingleOrDefaultAsync(x => x.Id == contractInspection.ContractId);
                     if (contract.Status != 100)
@@ -79,7 +83,10 @@ namespace ServiceRentableItemsPlugin.Handlers
                 _dbContext.ContractInspection.Where(x => x.ContractId == contractId).ToList();
             foreach (ContractInspection contractInspection in contractInspections)
             {
-                CaseDto caseDto = await _sdkCore.CaseReadByCaseId(contractInspection.SDKCaseId);
+                ContractInspectionItem contractInspectionItem =
+                    await _dbContext.ContractInspectionItem.SingleOrDefaultAsync(x =>
+                        x.ContractInspectionId == contractInspection.Id);
+                CaseDto caseDto = await _sdkCore.CaseReadByCaseId(contractInspectionItem.SDKCaseId);
                 if (caseDto.MicrotingUId != null)
                 {
                     await _sdkCore.CaseDelete((int) caseDto.MicrotingUId);
