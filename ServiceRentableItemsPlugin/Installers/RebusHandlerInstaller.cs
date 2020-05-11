@@ -35,6 +35,10 @@ namespace ServiceRentableItemsPlugin.Installers
                 .LifestyleTransient());
             container.Register(Component.For<IHandleMessages<eFormRetrieved>>().ImplementedBy<eFormRetrievedHandler>()
                 .LifestyleTransient());
+            container.Register(Component.For<IHandleMessages<eFormProcessed>>().ImplementedBy<eFormProcessedHandler>()
+                .LifestyleTransient());
+            container.Register(Component.For<IHandleMessages<eFormProcessingError>>().ImplementedBy<eFormProcessingErrorHandler>()
+                .LifestyleTransient());
         }
     }
 }

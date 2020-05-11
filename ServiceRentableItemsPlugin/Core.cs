@@ -79,12 +79,18 @@ namespace ServiceRentableItemsPlugin
 
         public void eFormProcessed(object sender, EventArgs args)
         {
-            // Do nothing
+            CaseDto trigger = (CaseDto)sender;
+
+            int? caseId = trigger.MicrotingUId;
+            if (caseId != null) _bus.SendLocal(new eFormProcessed((int) caseId));
         }
 
         public void eFormProcessingError(object sender, EventArgs args)
         {
-            // Do nothing
+            CaseDto trigger = (CaseDto)sender;
+
+            int? caseId = trigger.MicrotingUId;
+            if (caseId != null) _bus.SendLocal(new eFormProcessingError((int) caseId));
         }
 
         public void eFormRetrived(object sender, EventArgs args)
