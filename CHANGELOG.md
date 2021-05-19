@@ -1,5 +1,16 @@
 # Changelog
 
+## [v1.0.72](https://github.com/microting/eform-service-rentableitem-plugin/tree/v1.0.72) (2021-05-19)
+
+[Full Changelog](https://github.com/microting/eform-service-rentableitem-plugin/compare/v1.0.71...v1.0.72)
+
+**Implemented enhancements:**
+
+- Bump Microting.eFormRentableItemBase from 2.1.1 to 3.0.2 [\#142](https://github.com/microting/eform-service-rentableitem-plugin/issues/142)
+- Bump Microting.eFormBaseCustomerBase from 3.0.8 to 3.0.11 [\#141](https://github.com/microting/eform-service-rentableitem-plugin/issues/141)
+- Bump Microting.eFormApi.BasePn from 3.0.9 to 3.0.12 [\#140](https://github.com/microting/eform-service-rentableitem-plugin/issues/140)
+- Bump Microting.eForm from 5.1.5 to 5.2.2 [\#139](https://github.com/microting/eform-service-rentableitem-plugin/issues/139)
+
 ## [v1.0.71](https://github.com/microting/eform-service-rentableitem-plugin/tree/v1.0.71) (2021-05-11)
 
 [Full Changelog](https://github.com/microting/eform-service-rentableitem-plugin/compare/v1.0.70...v1.0.71)
