@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.0.87](https://github.com/microting/eform-service-rentableitem-plugin/tree/v1.0.87) (2021-07-15)
+
+[Full Changelog](https://github.com/microting/eform-service-rentableitem-plugin/compare/v1.0.86...v1.0.87)
+
 ## [v1.0.86](https://github.com/microting/eform-service-rentableitem-plugin/tree/v1.0.86) (2021-07-08)
 
 [Full Changelog](https://github.com/microting/eform-service-rentableitem-plugin/compare/v1.0.85...v1.0.86)
