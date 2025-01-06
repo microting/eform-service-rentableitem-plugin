@@ -17,7 +17,7 @@
       <PackageReference Include="Microting.eForm" Version="9.0.6" />
       <PackageReference Include="Microting.eFormApi.BasePn" Version="9.0.3" />
       <PackageReference Include="Microting.eFormBaseCustomerBase" Version="8.0.70" />
-      <PackageReference Include="Microting.eFormRentableItemBase" Version="3.0.135" />
+      <PackageReference Include="Microting.eFormRentableItemBase" Version="8.0.0" />
       <PackageReference Include="Microting.WindowsService.BasePn" Version="2.0.0" />
       <PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
     </ItemGroup>
