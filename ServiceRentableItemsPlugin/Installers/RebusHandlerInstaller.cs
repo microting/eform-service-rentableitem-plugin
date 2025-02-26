@@ -1,6 +1,6 @@
 /*
 The MIT License (MIT)
-Copyright (c) 2007 - 2019 Microting A/S
+Copyright (c) 2007 - 2025 Microting A/S
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -25,20 +25,19 @@ using Rebus.Handlers;
 using ServiceRentableItemsPlugin.Messages;
 using ServiceRentableItemsPlugin.Handlers;
 
-namespace ServiceRentableItemsPlugin.Installers
+namespace ServiceRentableItemsPlugin.Installers;
+
+public class RebusHandlerInstaller : IWindsorInstaller
 {
-    public class RebusHandlerInstaller : IWindsorInstaller
+    public void Install(IWindsorContainer container, IConfigurationStore store)
     {
-        public void Install(IWindsorContainer container, IConfigurationStore store)
-        {
-            container.Register(Component.For<IHandleMessages<eFormCompleted>>().ImplementedBy<EformCompletedHandler>()
-                .LifestyleTransient());
-            container.Register(Component.For<IHandleMessages<eFormRetrieved>>().ImplementedBy<eFormRetrievedHandler>()
-                .LifestyleTransient());
-            container.Register(Component.For<IHandleMessages<eFormProcessed>>().ImplementedBy<eFormProcessedHandler>()
-                .LifestyleTransient());
-            container.Register(Component.For<IHandleMessages<eFormProcessingError>>().ImplementedBy<eFormProcessingErrorHandler>()
-                .LifestyleTransient());
-        }
+        container.Register(Component.For<IHandleMessages<eFormCompleted>>().ImplementedBy<EformCompletedHandler>()
+            .LifestyleTransient());
+        container.Register(Component.For<IHandleMessages<eFormRetrieved>>().ImplementedBy<eFormRetrievedHandler>()
+            .LifestyleTransient());
+        container.Register(Component.For<IHandleMessages<eFormProcessed>>().ImplementedBy<eFormProcessedHandler>()
+            .LifestyleTransient());
+        container.Register(Component.For<IHandleMessages<eFormProcessingError>>().ImplementedBy<eFormProcessingErrorHandler>()
+            .LifestyleTransient());
     }
 }

@@ -1,22 +1,21 @@
 using Microting.eFormRentableItemBase.Infrastructure.Data;
 using Microting.eFormRentableItemBase.Infrastructure.Data.Factories;
 
-namespace ServiceRentableItemsPlugin.Infrastructure.Helpers
+namespace ServiceRentableItemsPlugin.Infrastructure.Helpers;
+
+public class DbContextHelper
 {
-    public class DbContextHelper
+    private string ConnecitonString { get; }
+
+    public DbContextHelper(string connecitonString)
     {
-        private string ConnecitonString { get; }
+        ConnecitonString = connecitonString;
+    }
 
-        public DbContextHelper(string connecitonString)
-        {
-            ConnecitonString = connecitonString;
-        }
+    public eFormRentableItemPnDbContext GetDbContext()
+    {
+        eFormRentableItemPnDbContextFactory contextFactory = new eFormRentableItemPnDbContextFactory();
 
-        public eFormRentableItemPnDbContext GetDbContext()
-        {
-            eFormRentableItemPnDbContextFactory contextFactory = new eFormRentableItemPnDbContextFactory();
-
-            return contextFactory.CreateDbContext(new[] {ConnecitonString});
-        }
+        return contextFactory.CreateDbContext(new[] {ConnecitonString});
     }
 }

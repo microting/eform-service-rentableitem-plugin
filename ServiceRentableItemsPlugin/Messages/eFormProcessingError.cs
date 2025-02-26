@@ -1,12 +1,11 @@
-namespace ServiceRentableItemsPlugin.Messages
-{
-    public class eFormProcessingError
-    {
-        public int caseId { get; protected set; }
+namespace ServiceRentableItemsPlugin.Messages;
 
-        public eFormProcessingError(int caseId)
-        {
-            this.caseId = caseId;
-        }
+public class eFormProcessingError
+{
+    public int caseId { get; protected set; }
+
+    public eFormProcessingError(int caseId)
+    {
+        this.caseId = caseId;
     }
 }

@@ -1,6 +1,6 @@
 /*
 The MIT License (MIT)
-Copyright (c) 2007 - 2019 Microting A/S
+Copyright (c) 2007 - 2025 Microting A/S
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -33,29 +33,28 @@ using ServiceRentableItemsPlugin.Infrastructure.Helpers;
 using ServiceRentableItemsPlugin.Messages;
 
 
-namespace ServiceRentableItemsPlugin.Handlers
-{
-    public class eFormRetrievedHandler : IHandleMessages<eFormRetrieved>
-    {
-        private readonly eFormCore.Core _sdkCore;
-        private readonly eFormRentableItemPnDbContext _dbContext;
+namespace ServiceRentableItemsPlugin.Handlers;
 
-        public eFormRetrievedHandler(eFormCore.Core sdkCore, DbContextHelper dbContextHelper)
+public class eFormRetrievedHandler : IHandleMessages<eFormRetrieved>
+{
+    private readonly eFormCore.Core _sdkCore;
+    private readonly eFormRentableItemPnDbContext _dbContext;
+
+    public eFormRetrievedHandler(eFormCore.Core sdkCore, DbContextHelper dbContextHelper)
+    {
+        _dbContext = dbContextHelper.GetDbContext();
+        _sdkCore = sdkCore;
+    }
+    public async Task Handle(eFormRetrieved message)
+    {
+        ContractInspectionItem contractInspectionItem =
+            _dbContext.ContractInspectionItem.SingleOrDefault(x => x.SDKCaseId == message.caseId);
+        if (contractInspectionItem != null)
         {
-            _dbContext = dbContextHelper.GetDbContext();
-            _sdkCore = sdkCore;
-        }
-        public async Task Handle(eFormRetrieved message)
-        {
-            ContractInspectionItem contractInspectionItem =
-                _dbContext.ContractInspectionItem.SingleOrDefault(x => x.SDKCaseId == message.caseId);
-            if (contractInspectionItem != null)
+            if (contractInspectionItem.Status < 77)
             {
-                if (contractInspectionItem.Status < 77)
-                {
-                    contractInspectionItem.Status = 77;
-                    await contractInspectionItem.Update(_dbContext);
-                }
+                contractInspectionItem.Status = 77;
+                await contractInspectionItem.Update(_dbContext);
             }
         }
     }
