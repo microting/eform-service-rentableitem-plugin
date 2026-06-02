@@ -27,6 +27,9 @@ using System;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
+using System.Linq;
 using Microting.eForm.Dto;
 // using Microting.eForm.Installers;
 using Microting.eFormRentableItemBase.Infrastructure.Data;
@@ -147,7 +150,11 @@ public class Core : ISdkEventHandler
                 eFormRentableItemPnDbContextFactory contextFactory = new eFormRentableItemPnDbContextFactory();
 
                 _dbContext = contextFactory.CreateDbContext(new[] { connectionString });
-                _dbContext.Database.Migrate();
+                var historyRepo = _dbContext.GetService<IHistoryRepository>();
+                if (!historyRepo.Exists() || _dbContext.Database.GetPendingMigrations().Any())
+                {
+                    _dbContext.Database.Migrate();
+                }
 
                 _coreAvailable = true;
                 _coreStatChanging = false;
